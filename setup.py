@@ -52,7 +52,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
     ],
-    python_requires="==3.7.10",
+    python_requires=">=3.7",
     packages=find_namespace_packages(),
     install_requires=[required_packages],
     extras_require={
