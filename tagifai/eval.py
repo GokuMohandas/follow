@@ -14,6 +14,17 @@ from tagifai import data, predict, train
 
 
 def get_metrics(y_true, y_pred, classes, df=None):
+    """Calculate metrics for fine-grained performance evaluation.
+
+    Args:
+        y_true (np.ndarray): True class labels.
+        y_pred (np.ndarray): Predicted class labels.
+        classes (List): List of all unique classes.
+        df (pd.DataFrame, optional): dataframe used for slicing.
+
+    Returns:
+        Dictionary of fine-grained performance metrics.
+    """
     # Performance
     metrics = {"overall": {}, "class": {}}
 
@@ -38,6 +49,16 @@ def get_metrics(y_true, y_pred, classes, df=None):
 
 
 def evaluate(df, artifacts, device=torch.device("cpu")):
+    """Evaluate performance on data.
+
+    Args:
+        df (pd.DataFrame): Dataframe (used for slicing).
+        artifacts (Dict): Artifacts needed for inference.
+        device (torch.device): Device to run model on. Defaults to CPU.
+
+    Returns:
+        Ground truth and predicted labels, performance.
+    """
     # Artifacts
     params = artifacts["params"]
     model = artifacts["model"]

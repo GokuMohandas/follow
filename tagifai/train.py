@@ -21,14 +21,16 @@ from tagifai import data, eval, models, utils
 
 
 class Trainer:
+    """Object used to facilitate training."""
+
     def __init__(
         self,
-        model,
-        device=torch.device("cpu"),
+        model: nn.Module,
+        device: torch.device = torch.device("cpu"),
         loss_fn=None,
         optimizer=None,
         scheduler=None,
-        trial=None,
+        trial: optuna.trial._trial.Trial = None,
     ):
 
         # Set params
@@ -39,7 +41,13 @@ class Trainer:
         self.scheduler = scheduler
         self.trial = trial
 
-    def train_step(self, dataloader):
+    def train_step(self, dataloader: torch.utils.data.DataLoader):
+        """Train step.
+
+        Args:
+            dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.
+
+        """
         # Set model to train mode
         self.model.train()
         loss = 0.0
@@ -61,7 +69,13 @@ class Trainer:
 
         return loss
 
-    def eval_step(self, dataloader):
+    def eval_step(self, dataloader: torch.utils.data.DataLoader):
+        """Evaluation (val / test) step.
+
+        Args:
+            dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.
+
+        """
         # Set model to eval mode
         self.model.eval()
         loss = 0.0
@@ -87,7 +101,16 @@ class Trainer:
 
         return loss, np.vstack(y_trues), np.vstack(y_probs)
 
-    def predict_step(self, dataloader):
+    def predict_step(self, dataloader: torch.utils.data.DataLoader):
+        """Prediction (inference) step.
+
+        Note:
+            Loss is not calculated for this loop.
+
+        Args:
+            dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.
+
+        """
         # Set model to eval mode
         self.model.eval()
         y_trues, y_probs = [], []
@@ -108,7 +131,28 @@ class Trainer:
 
         return np.vstack(y_trues), np.vstack(y_probs)
 
-    def train(self, num_epochs, patience, train_dataloader, val_dataloader):
+    def train(
+        self,
+        num_epochs: int,
+        patience: int,
+        train_dataloader: torch.utils.data.DataLoader,
+        val_dataloader: torch.utils.data.DataLoader,
+    ) -> Tuple:
+        """Training loop.
+
+        Args:
+            num_epochs (int): Maximum number of epochs to train for (can stop earlier based on performance).
+            patience (int): Number of acceptable epochs for continuous degrading performance.
+            train_dataloader (torch.utils.data.DataLoader): Dataloader object with training data split.
+            val_dataloader (torch.utils.data.DataLoader): Dataloader object with validation data split.
+
+        Raises:
+            optuna.TrialPruned: Early stopping of the optimization trial if poor performance.
+
+        Returns:
+            The best validation loss and the trained model from that point.
+        """
+
         best_val_loss = np.inf
         best_model = None
         _patience = patience
@@ -147,15 +191,39 @@ class Trainer:
         return best_val_loss, best_model
 
 
-def find_best_threshold(y_true, y_prob):
-    precisions, recalls, thresholds = precision_recall_curve(
-        y_true.ravel(), y_prob.ravel()
-    )
+def find_best_threshold(y_true: np.ndarray, y_prob: np.ndarray) -> float:
+    """Determine the best threshold for maximum f1 score.
+
+    Usage:
+
+    ```python
+    # Find best threshold
+    _, y_true, y_prob = trainer.eval_step(dataloader=train_dataloader)
+    params.threshold = find_best_threshold(y_true=y_true, y_prob=y_prob)
+    ```
+
+    Args:
+        y_true (np.ndarray): True labels.
+        y_prob (np.ndarray): Probability distribution for predicted labels.
+
+    Returns:
+        Best threshold for maximum f1 score.
+    """
+    precisions, recalls, thresholds = precision_recall_curve(y_true.ravel(), y_prob.ravel())
     f1s = (2 * precisions * recalls) / (precisions + recalls)
     return thresholds[np.argmax(f1s)]
 
 
-def train(params, trial=None):
+def train(params: Namespace, trial: optuna.trial._trial.Trial = None) -> Dict:
+    """Operations for training.
+
+    Args:
+        params (Namespace): Input parameters for operations.
+        trial (optuna.trial._trial.Trail, optional): Optuna optimization trial. Defaults to None.
+
+    Returns:
+        Artifacts to save and load for later.
+    """
     # Set up
     utils.set_seed(seed=params.seed)
     device = utils.set_device(cuda=params.cuda)
@@ -266,3 +334,37 @@ def train(params, trial=None):
     artifacts["performance"] = performance
 
     return artifacts
+
+
+def objective(params: Namespace, trial: optuna.trial._trial.Trial) -> float:
+    """Objective function for optimization trials.
+
+    Args:
+        params (Namespace): Input parameters for each trial (see `config/params.json`).
+        trial (optuna.trial._trial.Trial): Optuna optimization trial.
+
+    Returns:
+        F1 score from evaluating the trained model on the test data split.
+    """
+    # Paramters (to tune)
+    params.embedding_dim = trial.suggest_int("embedding_dim", 128, 512)
+    params.num_filters = trial.suggest_int("num_filters", 128, 512)
+    params.hidden_dim = trial.suggest_int("hidden_dim", 128, 512)
+    params.dropout_p = trial.suggest_uniform("dropout_p", 0.3, 0.8)
+    params.lr = trial.suggest_loguniform("lr", 5e-5, 5e-4)
+
+    # Train (can move some of these outside for efficiency)
+    logger.info(f"\nTrial {trial.number}:")
+    logger.info(json.dumps(trial.params, indent=2))
+    artifacts = train(params=params, trial=trial)
+
+    # Set additional attributes
+    params = artifacts["params"]
+    performance = artifacts["performance"]
+    logger.info(json.dumps(performance["overall"], indent=2))
+    trial.set_user_attr("threshold", params.threshold)
+    trial.set_user_attr("precision", performance["overall"]["precision"])
+    trial.set_user_attr("recall", performance["overall"]["recall"])
+    trial.set_user_attr("f1", performance["overall"]["f1"])
+
+    return performance["overall"]["f1"]

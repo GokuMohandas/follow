@@ -1,18 +1,3 @@
-> You are on a branch of the main MLOps repository. This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
-
-## Organization
-```bash
-tagifai/
-├── data.py       - data processing components
-├── eval.py       - evaluation components
-├── main.py       - training/optimization pipelines
-├── models.py     - model architectures
-├── predict.py    - inference components
-├── train.py      - training components
-└── utils.py      - supplementary utilities
-```
-
-## Operations
 ```python linenums="1"
 from pathlib import Path
 from config import config
@@ -45,22 +30,4 @@ main.delete_experiment(experiment_name=experiment_name)
                                "num_samples": 32.0
                              }
 [01/01/20 16:36:49] INFO     ✅ Deleted experiment test!
-```
-
-## Documentation
-```
-python -m mkdocs serve
-```
-
-<!-- Citation -->
-<hr>
-To cite this course, please use:
-
-```bibtex
-@misc{madewithml,
-    author       = {Goku Mohandas},
-    title        = {Made With ML MLOps Course},
-    howpublished = {\url{https://madewithml.com/}},
-    year         = {2021}
-}
 ```

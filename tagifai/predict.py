@@ -10,7 +10,45 @@ import torch
 from tagifai import data, train
 
 
-def predict(texts, artifacts, device:torch.device = torch.device("cpu")):
+def predict(texts: List, artifacts: Dict, device: torch.device = torch.device("cpu")) -> Dict:
+    """Predict tags for an input text using the
+    best model from the `best` experiment.
+
+    Usage:
+
+    ```python
+    texts = ["Transfer learning with BERT."]
+    artifacts = load_artifacts(run_id="264ac530b78c42608e5dea1086bc2c73")
+    predict(texts=texts, artifacts=artifacts)
+    ```
+    <pre>
+    [
+      {
+          "input_text": "Transfer learning with BERT.",
+          "preprocessed_text": "transfer learning bert",
+          "predicted_tags": [
+            "attention",
+            "language-modeling",
+            "natural-language-processing",
+            "transfer-learning",
+            "transformers"
+          ]
+      }
+    ]
+    </pre>
+
+    Note:
+        The input parameter `texts` can hold multiple input texts and so the resulting prediction dictionary will have `len(texts)` items.
+
+    Args:
+        texts (List): List of input texts to predict tags for.
+        artifacts (Dict): Artifacts needed for inference.
+        device (torch.device): Device to run model on. Defaults to CPU.
+
+    Returns:
+        Predicted tags for each of the input texts.
+
+    """
     # Retrieve artifacts
     params = artifacts["params"]
     label_encoder = artifacts["label_encoder"]

@@ -6,7 +6,7 @@ import tempfile
 import warnings
 from argparse import Namespace
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 import mlflow
 import optuna
@@ -24,6 +24,7 @@ warnings.filterwarnings("ignore")
 
 
 def download_auxiliary_data():
+    """Load auxiliary data from URL and save to local drive."""
     # Download auxiliary data
     tags_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/tags.json"
     tags = utils.load_json_from_url(url=tags_url)
@@ -34,7 +35,16 @@ def download_auxiliary_data():
     logger.info("✅ Auxiliary data downloaded!")
 
 
-def compute_features(params_fp=Path(config.CONFIG_DIR, "params.json")):
+def compute_features(
+    params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
+) -> None:
+    """Compute and save features for training.
+
+    Args:
+        params_fp (Path, optional): Location of parameters (just using num_samples,
+                                    num_epochs, etc.) to use for training.
+                                    Defaults to `config/params.json`.
+    """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -44,9 +54,21 @@ def compute_features(params_fp=Path(config.CONFIG_DIR, "params.json")):
 
 
 def optimize(
-    params_fp=Path(config.CONFIG_DIR, "params.json"),
-    study_name="optimization",
-    num_trials=100):
+    params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
+    study_name: Optional[str] = "optimization",
+    num_trials: int = 100,
+) -> None:
+    """Optimize a subset of hyperparameters towards an objective.
+
+    This saves the best trial's parameters into `config/params.json`.
+
+    Args:
+        params_fp (Path, optional): Location of parameters (just using num_samples,
+                                    num_epochs, etc.) to use for training.
+                                    Defaults to `config/params.json`.
+        study_name (str, optional): Name of the study to save trial runs under. Defaults to `optimization`.
+        num_trials (int, optional): Number of trials to run. Defaults to 100.
+    """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -73,9 +95,18 @@ def optimize(
 
 
 def train_model(
-    params_fp=Path(config.CONFIG_DIR, "params.json"),
-    experiment_name="best",
-    run_name="model"):
+    params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
+    experiment_name: Optional[str] = "best",
+    run_name: Optional[str] = "model",
+) -> None:
+    """Train a model using the specified parameters.
+
+    Args:
+        params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
+        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
+        experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
+        run_name (str, optional): Name of the run. Defaults to `model`.
+    """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -114,7 +145,22 @@ def train_model(
         mlflow.log_params(vars(artifacts["params"]))
 
 
-def predict_tags(text, run_id):
+def predict_tags(text: str, run_id: str) -> Dict:
+    """Predict tags for a give input text using a trained model.
+
+    Warning:
+        Make sure that you have a trained model first!
+
+    Args:
+        text (str): Input text to predict tags for.
+        run_id (str): ID of the model run to load artifacts.
+
+    Raises:
+        ValueError: Run id doesn't exist in experiment.
+
+    Returns:
+        Predicted tags for input text.
+    """
     # Predict
     artifacts = load_artifacts(run_id=run_id)
     prediction = predict.predict(texts=[text], artifacts=artifacts)
@@ -123,19 +169,30 @@ def predict_tags(text, run_id):
     return prediction
 
 
-def params(run_id):
+def params(run_id: str) -> Dict:
+    """Configured parametes for a specific run ID."""
     params = load_artifacts(run_id=run_id)["params"]
     logger.info(json.dumps(params, indent=2))
     return params
 
 
-def performance(run_id):
+def performance(run_id: str) -> Dict:
+    """Performance summary for a specific run ID."""
     performance = load_artifacts(run_id=run_id)["performance"]
     logger.info(json.dumps(performance, indent=2))
     return performance
 
 
-def load_artifacts(run_id, device=torch.device("cpu")):
+def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> Dict:
+    """Load artifacts for current model.
+
+    Args:
+        run_id (str): ID of the model run to load artifacts. Defaults to run ID in config.MODEL_DIR.
+        device (torch.device): Device to run model on. Defaults to CPU.
+
+    Returns:
+        Artifacts needed for inference.
+    """
     # Load artifacts
     artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
     params = Namespace(**utils.load_dict(filepath=Path(artifact_uri, "params.json")))
@@ -159,7 +216,12 @@ def load_artifacts(run_id, device=torch.device("cpu")):
     }
 
 
-def delete_experiment(experiment_name):
+def delete_experiment(experiment_name: str):
+    """Delete an experiment with name `experiment_name`.
+
+    Args:
+        experiment_name (str): Name of the experiment.
+    """
     client = mlflow.tracking.MlflowClient()
     experiment_id = client.get_experiment_by_name(experiment_name).experiment_id
     client.delete_experiment(experiment_id=experiment_id)
