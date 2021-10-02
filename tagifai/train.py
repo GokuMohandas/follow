@@ -266,3 +266,28 @@ def train(params, trial=None):
     artifacts["performance"] = performance
 
     return artifacts
+
+
+def objective(params, trial):
+    # Paramters (to tune)
+    params.embedding_dim = trial.suggest_int("embedding_dim", 128, 512)
+    params.num_filters = trial.suggest_int("num_filters", 128, 512)
+    params.hidden_dim = trial.suggest_int("hidden_dim", 128, 512)
+    params.dropout_p = trial.suggest_uniform("dropout_p", 0.3, 0.8)
+    params.lr = trial.suggest_loguniform("lr", 5e-5, 5e-4)
+
+    # Train (can move some of these outside for efficiency)
+    logger.info(f"\nTrial {trial.number}:")
+    logger.info(json.dumps(trial.params, indent=2))
+    artifacts = train(params=params, trial=trial)
+
+    # Set additional attributes
+    params = artifacts["params"]
+    performance = artifacts["performance"]
+    logger.info(json.dumps(performance["overall"], indent=2))
+    trial.set_user_attr("threshold", params.threshold)
+    trial.set_user_attr("precision", performance["overall"]["precision"])
+    trial.set_user_attr("recall", performance["overall"]["recall"])
+    trial.set_user_attr("f1", performance["overall"]["f1"])
+
+    return performance["overall"]["f1"]
