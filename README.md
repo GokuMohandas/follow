@@ -10,6 +10,14 @@ python -m pip install -e .
 
 ## Organization
 ```bash
+app/
+├── api.py          - FastAPI app
+├── gunicorn.py     - WSGI script
+└── schemas.py      - API model schemas
+config/
+├── config.py       - configuration setup
+├── params.json     - training parameters
+└── test_params.py  - training test parameters
 tagifai/
 ├── data.py       - data processing components
 ├── eval.py       - evaluation components
