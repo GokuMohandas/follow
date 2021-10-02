@@ -11,6 +11,7 @@ from typing import Dict, Optional
 import mlflow
 import optuna
 import torch
+import typer
 from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
 
@@ -21,7 +22,11 @@ from tagifai import data, models, predict, train, utils
 # Ignore warning
 warnings.filterwarnings("ignore")
 
+# Initialize Typer CLI app
+app = typer.Typer()
 
+
+@app.command()
 def download_auxiliary_data():
     """Load auxiliary data from URL and save to local drive."""
     # Download auxiliary data
@@ -34,6 +39,7 @@ def download_auxiliary_data():
     logger.info("✅ Auxiliary data downloaded!")
 
 
+@app.command()
 def compute_features(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
 ) -> None:
@@ -52,6 +58,7 @@ def compute_features(
     logger.info("✅ Computed features!")
 
 
+@app.command()
 def optimize(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
     study_name: Optional[str] = "optimization",
@@ -93,6 +100,7 @@ def optimize(
     logger.info(json.dumps(params, indent=2, cls=NumpyEncoder))
 
 
+@app.command()
 def train_model(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
     experiment_name: Optional[str] = "best",
@@ -144,6 +152,7 @@ def train_model(
         mlflow.log_params(vars(artifacts["params"]))
 
 
+@app.command()
 def predict_tags(text: str, run_id: str) -> Dict:
     """Predict tags for a give input text using a trained model.
 
@@ -168,16 +177,20 @@ def predict_tags(text: str, run_id: str) -> Dict:
     return prediction
 
 
+@app.command()
 def params(run_id: str) -> Dict:
     """Configured parametes for a specific run ID."""
-    params = load_artifacts(run_id=run_id)["params"]
+    artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
+    params = utils.load_dict(filepath=Path(artifact_uri, "params.json"))
     logger.info(json.dumps(params, indent=2))
     return params
 
 
+@app.command()
 def performance(run_id: str) -> Dict:
     """Performance summary for a specific run ID."""
-    performance = load_artifacts(run_id=run_id)["performance"]
+    artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
+    performance = utils.load_dict(filepath=Path(artifact_uri, "performance.json"))
     logger.info(json.dumps(performance, indent=2))
     return performance
 
