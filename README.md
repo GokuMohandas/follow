@@ -1,4 +1,12 @@
-> You are on a branch of the main MLOps repository. This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+
+## Packaging
+```bash
+python3 -m venv venv
+source venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e .
+```
 
 ## Organization
 ```bash
