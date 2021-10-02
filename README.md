@@ -1,15 +1,27 @@
-> You are on a branch of the main MLOps repository. This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+
+## Packaging
+```bash
+python3 -m venv venv
+source venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e .
+```
 
 ## Organization
 ```bash
+config/
+├── config.py        - configuration setup
+├── params.json      - training parameters
+└──  test_params.py  - training test parameters
 tagifai/
-├── data.py       - data processing components
-├── eval.py       - evaluation components
-├── main.py       - training/optimization pipelines
-├── models.py     - model architectures
-├── predict.py    - inference components
-├── train.py      - training components
-└── utils.py      - supplementary utilities
+├── data.py          - data processing components
+├── eval.py          - evaluation components
+├── main.py          - training/optimization pipelines
+├── models.py        - model architectures
+├── predict.py       - inference components
+├── train.py         - training components
+└── utils.py         - supplementary utilities
 ```
 
 ## Operations
@@ -30,7 +42,7 @@ experiment_name = "test"
 main.train_model(params_fp, experiment_name=experiment_name, run_name="model")
 
 # Delete test experiment
-utils.delete_experiment(experiment_name=experiment_name)
+main.delete_experiment(experiment_name=experiment_name)
 ```
 
 ```bash
@@ -45,6 +57,11 @@ utils.delete_experiment(experiment_name=experiment_name)
                                "num_samples": 32.0
                              }
 [01/01/20 16:36:49] INFO     ✅ Deleted experiment test!
+```
+
+## Documentation
+```
+python -m mkdocs serve
 ```
 
 <!-- Citation -->
