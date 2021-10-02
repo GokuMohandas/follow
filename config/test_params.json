@@ -1,0 +1,22 @@
+{
+    "seed": 1234,
+    "cuda": true,
+    "shuffle": true,
+    "subset": 512,
+    "min_tag_freq": 60,
+    "lower": true,
+    "stem": false,
+    "train_size": 0.7,
+    "char_level": true,
+    "max_filter_size": 3,
+    "batch_size": 128,
+    "embedding_dim": 133,
+    "num_filters": 220,
+    "hidden_dim": 476,
+    "dropout_p": 0.40436425919655933,
+    "lr": 0.00010226427625637602,
+    "num_epochs": 1,
+    "patience": 10,
+    "threshold": 0.6074090003967285,
+    "num_samples": 209
+}
