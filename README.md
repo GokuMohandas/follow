@@ -10,14 +10,18 @@ python -m pip install -e .
 
 ## Organization
 ```bash
+config/
+├── config.py        - configuration setup
+├── params.json      - training parameters
+└──  test_params.py  - training test parameters
 tagifai/
-├── data.py       - data processing components
-├── eval.py       - evaluation components
-├── main.py       - training/optimization pipelines
-├── models.py     - model architectures
-├── predict.py    - inference components
-├── train.py      - training components
-└── utils.py      - supplementary utilities
+├── data.py          - data processing components
+├── eval.py          - evaluation components
+├── main.py          - training/optimization pipelines
+├── models.py        - model architectures
+├── predict.py       - inference components
+├── train.py         - training components
+└── utils.py         - supplementary utilities
 ```
 
 ## Operations
