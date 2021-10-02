@@ -10,7 +10,6 @@ from typing import Dict, Optional
 
 import mlflow
 import optuna
-import pandas as pd
 import torch
 from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
