@@ -68,6 +68,34 @@ main.delete_experiment(experiment_name=experiment_name)
 python -m mkdocs serve
 ```
 
+## CLI
+```bash
+tagifai predict-tags "Transfer learning with BERT" "<RUN_ID>"
+```
+
+## API
+```bash
+# Update RUN_ID inside config/run_id.txt
+uvicorn app.api:app --host 0.0.0.0 --port 5000 --reload --reload-dir tagifai --reload-dir app  # dev
+gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
+```
+```bash
+curl -X 'POST' \
+  'http://localhost:5000/predict' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "texts": [
+    {
+      "text": "Transfer learning with transformers for self-supervised learning."
+    },
+    {
+      "text": "Generative adversarial networks in both PyTorch and TensorFlow."
+    }
+  ]
+}'
+```
+
 <!-- Citation -->
 <hr>
 To cite this course, please use:

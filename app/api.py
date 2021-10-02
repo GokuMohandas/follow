@@ -26,7 +26,7 @@ app = FastAPI(
 @app.on_event("startup")
 def load_artifacts():
     global artifacts
-    run_id = open(Path(config.MODEL_DIR, "run_id.txt")).read()
+    run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
     artifacts = main.load_artifacts(run_id=run_id)
     logger.info("Ready for inference!")
 

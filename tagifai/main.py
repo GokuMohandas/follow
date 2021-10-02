@@ -110,7 +110,6 @@ def train_model(
 
     Args:
         params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
-        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
         experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
         run_name (str, optional): Name of the run. Defaults to `model`.
     """
@@ -199,7 +198,7 @@ def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> D
     """Load artifacts for current model.
 
     Args:
-        run_id (str): ID of the model run to load artifacts. Defaults to run ID in config.MODEL_DIR.
+        run_id (str): ID of the model run to load artifacts.
         device (torch.device): Device to run model on. Defaults to CPU.
 
     Returns:
