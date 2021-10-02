@@ -170,14 +170,16 @@ def predict_tags(text: str, run_id: str) -> Dict:
 
 def params(run_id: str) -> Dict:
     """Configured parametes for a specific run ID."""
-    params = load_artifacts(run_id=run_id)["params"]
+    artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
+    params = utils.load_dict(filepath=Path(artifact_uri, "params.json"))
     logger.info(json.dumps(params, indent=2))
     return params
 
 
 def performance(run_id: str) -> Dict:
     """Performance summary for a specific run ID."""
-    performance = load_artifacts(run_id=run_id)["performance"]
+    artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
+    performance = utils.load_dict(filepath=Path(artifact_uri, "performance.json"))
     logger.info(json.dumps(performance, indent=2))
     return performance
 
