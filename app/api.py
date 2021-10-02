@@ -10,9 +10,9 @@ from typing import Dict, Optional
 
 from fastapi import FastAPI, Request
 
+from app.schemas import PredictPayload
 from config import config
 from config.config import logger
-from app.schemas import PredictPayload
 from tagifai import main, predict
 
 # Define application
