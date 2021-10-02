@@ -1,16 +1,11 @@
 # tagifai/eval.py
 # Evaluation components.
 
-import itertools
-from typing import Dict, List, Tuple
-
 import numpy as np
-import pandas as pd
 import torch
 from sklearn.metrics import precision_recall_fscore_support
-from snorkel.slicing import PandasSFApplier, slicing_function
 
-from tagifai import data, predict, train
+from tagifai import data, train
 
 
 def get_metrics(y_true, y_pred, classes, df=None):
