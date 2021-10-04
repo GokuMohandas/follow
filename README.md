@@ -13,7 +13,7 @@ python -m pip install -e .
 config/
 ├── config.py        - configuration setup
 ├── params.json      - training parameters
-└──  test_params.py  - training test parameters
+└── test_params.py   - training test parameters
 tagifai/
 ├── data.py          - data processing components
 ├── eval.py          - evaluation components
@@ -28,7 +28,7 @@ tagifai/
 ```python linenums="1"
 from pathlib import Path
 from config import config
-from tagifai import main, utils
+from tagifai import main
 
 # Load auxiliary data
 main.download_auxiliary_data()
