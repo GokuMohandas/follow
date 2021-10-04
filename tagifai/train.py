@@ -16,6 +16,7 @@ import torch.nn as nn
 from sklearn.metrics import precision_recall_curve
 
 from config import config
+from config.config import logger
 from tagifai import data, eval, models, utils
 
 
@@ -121,7 +122,7 @@ class Trainer:
             if self.trial:
                 self.trial.report(val_loss, epoch)
                 if self.trial.should_prune():  # pragma: no cover, optuna pruning
-                    print("Unpromising trial pruned!")
+                    logger.info("Unpromising trial pruned!")
                     raise optuna.TrialPruned()
 
             # Early stopping
@@ -132,11 +133,11 @@ class Trainer:
             else:  # pragma: no cover, simple subtraction
                 _patience -= 1
             if not _patience:  # pragma: no cover, simple break
-                print("Stopping early!")
+                logger.info("Stopping early!")
                 break
 
             # Logging
-            print(
+            logger.info(
                 f"Epoch: {epoch+1} | "
                 f"train_loss: {train_loss:.5f}, "
                 f"val_loss: {val_loss:.5f}, "
@@ -225,7 +226,7 @@ def train(params, trial=None):
     )
 
     # Train model
-    print(f"Parameters: {json.dumps(params.__dict__, indent=2, cls=NumpyEncoder)}")
+    logger.info(f"Parameters: {json.dumps(params.__dict__, indent=2, cls=NumpyEncoder)}")
     class_weights_tensor = torch.Tensor(np.array(list(class_weights.values())))
     loss_fn = nn.BCEWithLogitsLoss(weight=class_weights_tensor)
     optimizer = torch.optim.Adam(model.parameters(), lr=params.lr)
@@ -276,14 +277,14 @@ def objective(params, trial):
     params.lr = trial.suggest_loguniform("lr", 5e-5, 5e-4)
 
     # Train (can move some of these outside for efficiency)
-    print(f"\nTrial {trial.number}:")
-    print(json.dumps(trial.params, indent=2))
+    logger.info(f"\nTrial {trial.number}:")
+    logger.info(json.dumps(trial.params, indent=2))
     artifacts = train(params=params, trial=trial)
 
     # Set additional attributes
     params = artifacts["params"]
     performance = artifacts["performance"]
-    print(json.dumps(performance["overall"], indent=2))
+    logger.info(json.dumps(performance["overall"], indent=2))
     trial.set_user_attr("threshold", params.threshold)
     trial.set_user_attr("precision", performance["overall"]["precision"])
     trial.set_user_attr("recall", performance["overall"]["recall"])

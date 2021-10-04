@@ -28,7 +28,7 @@ tagifai/
 ```python linenums="1"
 from pathlib import Path
 from config import config
-from tagifai import main, utils
+from tagifai import main
 
 # Load auxiliary data
 main.download_auxiliary_data()
