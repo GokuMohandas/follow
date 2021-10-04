@@ -15,7 +15,6 @@ from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
 
 from config import config
-from config.config import logger
 from tagifai import data, models, predict, train, utils
 
 # Ignore warning
@@ -30,7 +29,7 @@ def download_auxiliary_data():
     # Save data
     tags_fp = Path(config.DATA_DIR, "tags.json")
     utils.save_dict(d=tags, filepath=tags_fp)
-    logger.info("✅ Auxiliary data downloaded!")
+    print("✅ Auxiliary data downloaded!")
 
 
 def compute_features(params_fp=Path(config.CONFIG_DIR, "params.json")):
@@ -39,7 +38,7 @@ def compute_features(params_fp=Path(config.CONFIG_DIR, "params.json")):
 
     # Compute features
     data.compute_features(params=params)
-    logger.info("✅ Computed features!")
+    print("✅ Computed features!")
 
 
 def optimize(
@@ -64,11 +63,11 @@ def optimize(
     trials_df = trials_df.sort_values(["value"], ascending=False)
 
     # Best trial
-    logger.info(f"Best value (f1): {study.best_trial.value}")
+    print(f"Best value (f1): {study.best_trial.value}")
     params = {**params.__dict__, **study.best_trial.params}
     params["threshold"] = study.best_trial.user_attrs["threshold"]
     utils.save_dict(params, params_fp, cls=NumpyEncoder)
-    logger.info(json.dumps(params, indent=2, cls=NumpyEncoder))
+    print(json.dumps(params, indent=2, cls=NumpyEncoder))
 
 
 def train_model(
@@ -82,7 +81,7 @@ def train_model(
     mlflow.set_experiment(experiment_name=experiment_name)
     with mlflow.start_run(run_name=run_name):
         run_id = mlflow.active_run().info.run_id
-        logger.info(f"Run ID: {run_id}")
+        print(f"Run ID: {run_id}")
 
         # Train
         artifacts = train.train(params=params)
@@ -93,7 +92,7 @@ def train_model(
 
         # Log metrics
         performance = artifacts["performance"]
-        logger.info(json.dumps(performance["overall"], indent=2))
+        print(json.dumps(performance["overall"], indent=2))
         metrics = {
             "precision": performance["overall"]["precision"],
             "recall": performance["overall"]["recall"],
@@ -117,7 +116,7 @@ def predict_tags(text, run_id):
     # Predict
     artifacts = load_artifacts(run_id=run_id)
     prediction = predict.predict(texts=[text], artifacts=artifacts)
-    logger.info(json.dumps(prediction, indent=2))
+    print(json.dumps(prediction, indent=2))
 
     return prediction
 
@@ -125,14 +124,14 @@ def predict_tags(text, run_id):
 def params(run_id):
     artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
     params = utils.load_dict(filepath=Path(artifact_uri, "params.json"))
-    logger.info(json.dumps(params, indent=2))
+    print(json.dumps(params, indent=2))
     return params
 
 
 def performance(run_id):
     artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
     performance = utils.load_dict(filepath=Path(artifact_uri, "performance.json"))
-    logger.info(json.dumps(performance, indent=2))
+    print(json.dumps(performance, indent=2))
     return performance
 
 
@@ -164,4 +163,4 @@ def delete_experiment(experiment_name):
     client = mlflow.tracking.MlflowClient()
     experiment_id = client.get_experiment_by_name(experiment_name).experiment_id
     client.delete_experiment(experiment_id=experiment_id)
-    logger.info(f"✅ Deleted experiment {experiment_name}!")
+    print(f"✅ Deleted experiment {experiment_name}!")

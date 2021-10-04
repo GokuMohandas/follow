@@ -13,7 +13,7 @@ python -m pip install -e .
 config/
 ├── config.py        - configuration setup
 ├── params.json      - training parameters
-└──  test_params.py  - training test parameters
+└── test_params.py   - training test parameters
 tagifai/
 ├── data.py          - data processing components
 ├── eval.py          - evaluation components
@@ -42,7 +42,7 @@ experiment_name = "test"
 main.train_model(params_fp, experiment_name=experiment_name, run_name="model")
 
 # Delete test experiment
-utils.delete_experiment(experiment_name=experiment_name)
+main.delete_experiment(experiment_name=experiment_name)
 ```
 
 ```bash
