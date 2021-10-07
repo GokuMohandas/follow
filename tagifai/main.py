@@ -27,16 +27,21 @@ app = typer.Typer()
 
 
 @app.command()
-def download_auxiliary_data():
-    """Load auxiliary data from URL and save to local drive."""
+def load_data():
+    """Load data from URLs and save to local drive."""
+    # Download main data
+    projects_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    projects = utils.load_json_from_url(url=projects_url)
+    projects_fp = Path(config.DATA_DIR, "projects.json")
+    utils.save_dict(d=projects, filepath=projects_fp)
+
     # Download auxiliary data
     tags_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/tags.json"
     tags = utils.load_json_from_url(url=tags_url)
-
-    # Save data
     tags_fp = Path(config.DATA_DIR, "tags.json")
     utils.save_dict(d=tags, filepath=tags_fp)
-    logger.info("✅ Auxiliary data downloaded!")
+
+    logger.info("✅ Loaded data!")
 
 
 @app.command()
