@@ -30,8 +30,8 @@ from pathlib import Path
 from config import config
 from tagifai import main
 
-# Load auxiliary data
-main.download_auxiliary_data()
+# Load data
+main.load_data()
 
 # Compute features
 main.compute_features()
@@ -46,7 +46,7 @@ main.delete_experiment(experiment_name=experiment_name)
 ```
 
 ```bash
-[01/01/20 16:36:49] INFO     ✅ Auxiliary data downloaded!
+[01/01/20 16:36:49] INFO     ✅ Loaded data!
 [01/01/20 16:36:49] INFO     ✅ Computed features!
 [01/01/20 16:36:49] INFO     Run ID: b39c3a8d2c3c494984a3fa2d9d670402
 [01/01/20 16:36:49] INFO     Epoch: 1 | train_loss: 0.00744, val_loss: 0.00648, lr: 1.02E-04, _patience: 10
