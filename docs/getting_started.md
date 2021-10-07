@@ -3,7 +3,7 @@ from pathlib import Path
 from config import config
 from tagifai import main, utils
 
-# Load auxiliary data
+# Load data
 main.load_data()
 
 # Compute features
