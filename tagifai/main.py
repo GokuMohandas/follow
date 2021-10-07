@@ -21,15 +21,20 @@ from tagifai import data, models, predict, train, utils
 warnings.filterwarnings("ignore")
 
 
-def download_auxiliary_data():
+def load_data():
+    # Download main data
+    projects_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    projects = utils.load_json_from_url(url=projects_url)
+    projects_fp = Path(config.DATA_DIR, "projects.json")
+    utils.save_dict(d=projects, filepath=projects_fp)
+
     # Download auxiliary data
     tags_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/tags.json"
     tags = utils.load_json_from_url(url=tags_url)
-
-    # Save data
     tags_fp = Path(config.DATA_DIR, "tags.json")
     utils.save_dict(d=tags, filepath=tags_fp)
-    print("✅ Auxiliary data downloaded!")
+
+    print("✅ Loaded data!")
 
 
 def compute_features(params_fp=Path(config.CONFIG_DIR, "params.json")):
