@@ -1,11 +1,25 @@
 # tagifai/eval.py
 # Evaluation components.
 
+import itertools
 import numpy as np
 import torch
 from sklearn.metrics import precision_recall_fscore_support
+from snorkel.slicing import PandasSFApplier, slicing_function
 
 from tagifai import data, train
+
+
+@slicing_function()
+def cv_transformers(x):
+    """Projects with the `computer-vision` and `transformers` tags."""
+    return all(tag in x.tags for tag in ["computer-vision", "transformers"])
+
+
+@slicing_function()
+def short_text(x):
+    """Projects with short titles and descriptions."""
+    return len(x.text.split()) < 7  # less than 7 words
 
 
 def get_metrics(y_true, y_pred, classes, df=None):
@@ -28,6 +42,46 @@ def get_metrics(y_true, y_pred, classes, df=None):
             "f1": class_metrics[2][i],
             "num_samples": np.float64(class_metrics[3][i]),
         }
+
+    # Slicing metrics
+    if df is not None:
+        # Slices
+        slicing_functions = [cv_transformers, short_text]
+        applier = PandasSFApplier(slicing_functions)
+        slices = applier.apply(df)
+
+        # Score slices
+        # Use snorkel.analysis.Scorer for multiclass tasks
+        # Naive implementation for our multilabel task
+        # based on snorkel.analysis.Scorer
+        metrics["slices"] = {}
+        metrics["slices"]["class"] = {}
+        for slice_name in slices.dtype.names:
+            mask = slices[slice_name].astype(bool)
+            if sum(mask):  # pragma: no cover, test set may not have enough samples for slicing
+                slice_metrics = precision_recall_fscore_support(
+                    y_true[mask], y_pred[mask], average="micro"
+                )
+                metrics["slices"]["class"][slice_name] = {}
+                metrics["slices"]["class"][slice_name]["precision"] = slice_metrics[0]
+                metrics["slices"]["class"][slice_name]["recall"] = slice_metrics[1]
+                metrics["slices"]["class"][slice_name]["f1"] = slice_metrics[2]
+                metrics["slices"]["class"][slice_name]["num_samples"] = len(y_true[mask])
+
+        # Weighted overall slice metrics
+        metrics["slices"]["overall"] = {}
+        for metric in ["precision", "recall", "f1"]:
+            metrics["slices"]["overall"][metric] = np.mean(
+                list(
+                    itertools.chain.from_iterable(
+                        [
+                            [metrics["slices"]["class"][slice_name][metric]]
+                            * metrics["slices"]["class"][slice_name]["num_samples"]
+                            for slice_name in metrics["slices"]["class"]
+                        ]
+                    )
+                )
+            )
 
     return metrics
 
