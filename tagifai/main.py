@@ -30,7 +30,9 @@ app = typer.Typer()
 def load_data():
     """Load data from URLs and save to local drive."""
     # Download main data
-    projects_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    projects_url = (
+        "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    )
     projects = utils.load_json_from_url(url=projects_url)
     projects_fp = Path(config.DATA_DIR, "projects.json")
     utils.save_dict(d=projects, filepath=projects_fp)

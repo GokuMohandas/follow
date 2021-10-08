@@ -34,3 +34,9 @@ clean: style
 	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
 	rm -f .coverage
 
+# Test
+.PHONY: test
+test:
+	great_expectations checkpoint run projects
+	great_expectations checkpoint run tags
+	pytest -m "not training"
