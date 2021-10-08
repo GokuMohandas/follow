@@ -37,4 +37,4 @@ markers = [
 
 # Pytest coverage
 [tool.coverage.run]
-omit = []
+omit = ["app/gunicorn.py"]
