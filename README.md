@@ -96,6 +96,14 @@ curl -X 'POST' \
 }'
 ```
 
+## Tests
+```
+cd tests
+great_expectations checkpoint run projects
+great_expectations checkpoint run tags
+pytest -m "not training"
+```
+
 <!-- Citation -->
 <hr>
 To cite this course, please use:
