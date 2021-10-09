@@ -11,21 +11,27 @@ python -m pip install -e .
 ## Organization
 ```bash
 app/
-├── api.py           - FastAPI app
-├── gunicorn.py      - WSGI script
-└── schemas.py       - API model schemas
+├── api.py               - FastAPI app
+├── gunicorn.py          - WSGI script
+└── schemas.py           - API model schemas
 config/
-├── config.py        - configuration setup
-├── params.json      - training parameters
-└── test_params.py   - training test parameters
+├── config.py            - configuration setup
+├── params.json          - training parameters
+└── test_params.py       - training test parameters
 tagifai/
-├── data.py          - data processing components
-├── eval.py          - evaluation components
-├── main.py          - training/optimization pipelines
-├── models.py        - model architectures
-├── predict.py       - inference components
-├── train.py         - training components
-└── utils.py         - supplementary utilities
+├── data.py              - data processing components
+├── eval.py              - evaluation components
+├── main.py              - training/optimization pipelines
+├── models.py            - model architectures
+├── predict.py           - inference components
+├── train.py             - training components
+└── utils.py             - supplementary utilities
+tests/
+├── app/                 - API tests
+├── config/              - config tests
+├── great_expectations/  - data tests
+├── model/               - model tests
+└── tagifai/             - code tests
 ```
 
 ## Operations
@@ -97,12 +103,23 @@ curl -X 'POST' \
 ```
 
 ## Tests
-```
-cd tests
-great_expectations checkpoint run projects
-great_expectations checkpoint run tags
-pytest -m "not training"
-```
+- Great expectation checkpoints
+    ```bash
+    cd tests
+    great_expectations checkpoint run projects
+    great_expectations checkpoint run tags
+    ```
+
+- Full coverage testing
+    ```bash
+    pytest tests --cov tagifai --cov app --cov config # report in STDOUT
+    pytest tests --cov tagifai --cov app --cov config --cov-report html  # report in htmlcov/
+    ```
+
+- Testing only the non-training components
+    ```bash
+    pytest -m "not training"
+    ```
 
 <!-- Citation -->
 <hr>
