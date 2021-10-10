@@ -8,7 +8,6 @@
 .idea
 
 # Data
-data/
 logs/
 stores/
 
