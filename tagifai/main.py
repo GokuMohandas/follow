@@ -78,8 +78,12 @@ def optimize(
 
     # Optimize
     pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=5)
-    study = optuna.create_study(study_name=study_name, direction="maximize", pruner=pruner)
-    mlflow_callback = MLflowCallback(tracking_uri=mlflow.get_tracking_uri(), metric_name="f1")
+    study = optuna.create_study(
+        study_name=study_name, direction="maximize", pruner=pruner
+    )
+    mlflow_callback = MLflowCallback(
+        tracking_uri=mlflow.get_tracking_uri(), metric_name="f1"
+    )
     study.optimize(
         lambda trial: train.objective(params, trial),
         n_trials=num_trials,
@@ -102,6 +106,7 @@ def train_model(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
     experiment_name: Optional[str] = "best",
     run_name: Optional[str] = "model",
+    test_run: Optional[bool] = False,
 ) -> None:
     """Train a model using the specified parameters.
 
@@ -140,13 +145,20 @@ def train_model(
 
         # Log artifacts
         with tempfile.TemporaryDirectory() as dp:
-            utils.save_dict(vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder)
+            utils.save_dict(
+                vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder
+            )
             utils.save_dict(performance, Path(dp, "performance.json"))
             artifacts["label_encoder"].save(Path(dp, "label_encoder.json"))
             artifacts["tokenizer"].save(Path(dp, "tokenizer.json"))
             torch.save(artifacts["model"].state_dict(), Path(dp, "model.pt"))
             mlflow.log_artifacts(dp)
         mlflow.log_params(vars(artifacts["params"]))
+
+    # Save to config
+    if not test_run:
+        open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
+        utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
 
 def predict_tags(text: str, run_id: str) -> Dict:
@@ -202,7 +214,9 @@ def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> D
     # Load artifacts
     artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
     params = Namespace(**utils.load_dict(filepath=Path(artifact_uri, "params.json")))
-    label_encoder = data.MultiLabelLabelEncoder.load(fp=Path(artifact_uri, "label_encoder.json"))
+    label_encoder = data.MultiLabelLabelEncoder.load(
+        fp=Path(artifact_uri, "label_encoder.json")
+    )
     tokenizer = data.Tokenizer.load(fp=Path(artifact_uri, "tokenizer.json"))
     model_state = torch.load(Path(artifact_uri, "model.pt"), map_location=device)
     performance = utils.load_dict(filepath=Path(artifact_uri, "performance.json"))
