@@ -99,18 +99,11 @@ def optimize(
 
 
 def train_model(
-    params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
-    experiment_name: Optional[str] = "best",
-    run_name: Optional[str] = "model",
-) -> None:
-    """Train a model using the specified parameters.
-
-    Args:
-        params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
-        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
-        experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
-        run_name (str, optional): Name of the run. Defaults to `model`.
-    """
+    params_fp=Path(config.CONFIG_DIR, "params.json"),
+    experiment_name="best",
+    run_name="model",
+    test_run=False,
+):
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -118,7 +111,6 @@ def train_model(
     mlflow.set_experiment(experiment_name=experiment_name)
     with mlflow.start_run(run_name=run_name):
         run_id = mlflow.active_run().info.run_id
-        logger.info(f"Run ID: {run_id}")
 
         # Train
         artifacts = train.train(params=params)
@@ -129,7 +121,7 @@ def train_model(
 
         # Log metrics
         performance = artifacts["performance"]
-        logger.info(json.dumps(performance["overall"], indent=2))
+        print(json.dumps(performance["overall"], indent=2))
         metrics = {
             "precision": performance["overall"]["precision"],
             "recall": performance["overall"]["recall"],
@@ -140,13 +132,20 @@ def train_model(
 
         # Log artifacts
         with tempfile.TemporaryDirectory() as dp:
-            utils.save_dict(vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder)
+            utils.save_dict(
+                vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder
+            )
             utils.save_dict(performance, Path(dp, "performance.json"))
             artifacts["label_encoder"].save(Path(dp, "label_encoder.json"))
             artifacts["tokenizer"].save(Path(dp, "tokenizer.json"))
             torch.save(artifacts["model"].state_dict(), Path(dp, "model.pt"))
             mlflow.log_artifacts(dp)
         mlflow.log_params(vars(artifacts["params"]))
+
+    # Save to config
+    if not test_run:
+        open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
+        utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
 
 def predict_tags(text: str, run_id: str) -> Dict:
