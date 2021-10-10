@@ -4,11 +4,10 @@ FROM python:3.7-slim
 # Install dependencies
 COPY setup.py setup.py
 COPY requirements.txt requirements.txt
-COPY Makefile Makefile
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc build-essential \
     && rm -rf /var/lib/apt/lists/* \
-    && python -m pip install -e . --no-cache-dir \
+    && python -m pip install -e . --no-cache-dir --verbose \
     && apt-get purge -y --auto-remove gcc build-essential
 
 # Copy
