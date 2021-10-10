@@ -104,6 +104,12 @@ great_expectations checkpoint run tags
 pytest -m "not training"
 ```
 
+## Docker
+```
+docker build -t tagifai:latest -f Dockerfile .
+docker run -p 5000:5000 --name tagifai tagifai:latest
+```
+
 <!-- Citation -->
 <hr>
 To cite this course, please use:
