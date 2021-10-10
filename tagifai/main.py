@@ -99,11 +99,19 @@ def optimize(
 
 
 def train_model(
-    params_fp=Path(config.CONFIG_DIR, "params.json"),
-    experiment_name="best",
-    run_name="model",
-    test_run=False,
-):
+    params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
+    experiment_name: Optional[str] = "best",
+    run_name: Optional[str] = "model",
+    test_run: Optional[bool] = False,
+) -> None:
+    """Train a model using the specified parameters.
+
+    Args:
+        params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
+        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
+        experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
+        run_name (str, optional): Name of the run. Defaults to `model`.
+    """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -111,6 +119,7 @@ def train_model(
     mlflow.set_experiment(experiment_name=experiment_name)
     with mlflow.start_run(run_name=run_name):
         run_id = mlflow.active_run().info.run_id
+        logger.info(f"Run ID: {run_id}")
 
         # Train
         artifacts = train.train(params=params)
@@ -121,7 +130,7 @@ def train_model(
 
         # Log metrics
         performance = artifacts["performance"]
-        print(json.dumps(performance["overall"], indent=2))
+        logger.info(json.dumps(performance["overall"], indent=2))
         metrics = {
             "precision": performance["overall"]["precision"],
             "recall": performance["overall"]["recall"],
