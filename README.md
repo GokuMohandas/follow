@@ -1,4 +1,4 @@
-> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only!
 
 ## Packaging
 ```bash
