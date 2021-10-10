@@ -22,6 +22,7 @@ STORES_DIR = Path(BASE_DIR, "stores")
 
 # Local stores
 MODEL_REGISTRY = Path(STORES_DIR, "model")
+BLOB_STORE = Path(STORES_DIR, "blob")
 
 # Create dirs
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
