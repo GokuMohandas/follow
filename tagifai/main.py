@@ -80,7 +80,9 @@ def optimize(
 def train_model(
     params_fp=Path(config.CONFIG_DIR, "params.json"),
     experiment_name="best",
-    run_name="model"):
+    run_name="model",
+    test_run=False
+):
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
 
@@ -88,7 +90,6 @@ def train_model(
     mlflow.set_experiment(experiment_name=experiment_name)
     with mlflow.start_run(run_name=run_name):
         run_id = mlflow.active_run().info.run_id
-        logger.info(f"Run ID: {run_id}")
 
         # Train
         artifacts = train.train(params=params)
@@ -117,6 +118,11 @@ def train_model(
             torch.save(artifacts["model"].state_dict(), Path(dp, "model.pt"))
             mlflow.log_artifacts(dp)
         mlflow.log_params(vars(artifacts["params"]))
+
+    # Save to config
+    if not test_run:
+        open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
+        utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
 
 def predict_tags(text, run_id):
