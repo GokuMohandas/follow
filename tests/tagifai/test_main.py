@@ -50,8 +50,6 @@ def test_optimize():
 def test_train_model():
     experiment_name = "test_experiment"
     run_name = "test_run"
-    tmp_dir = Path(config.BASE_DIR, "tmp")
-    tmp_dir.mkdir(parents=True, exist_ok=True)
     result = runner.invoke(
         app,
         [
@@ -62,6 +60,7 @@ def test_train_model():
             f"{experiment_name}",
             "--run-name",
             f"{run_name}",
+            "--test-run",
         ],
     )
     assert result.exit_code == 0
@@ -69,7 +68,6 @@ def test_train_model():
     # Delete experiment
     main.delete_experiment(experiment_name=experiment_name)
     shutil.rmtree(Path(config.MODEL_REGISTRY, ".trash"))
-    shutil.rmtree(tmp_dir)
 
 
 def test_predict_tags():
