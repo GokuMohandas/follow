@@ -112,11 +112,13 @@ def train_model(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
     experiment_name: Optional[str] = "best",
     run_name: Optional[str] = "model",
+    test_run: Optional[bool] = False,
 ) -> None:
     """Train a model using the specified parameters.
 
     Args:
         params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
+        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
         experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
         run_name (str, optional): Name of the run. Defaults to `model`.
     """
@@ -149,13 +151,20 @@ def train_model(
 
         # Log artifacts
         with tempfile.TemporaryDirectory() as dp:
-            utils.save_dict(vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder)
+            utils.save_dict(
+                vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder
+            )
             utils.save_dict(performance, Path(dp, "performance.json"))
             artifacts["label_encoder"].save(Path(dp, "label_encoder.json"))
             artifacts["tokenizer"].save(Path(dp, "tokenizer.json"))
             torch.save(artifacts["model"].state_dict(), Path(dp, "model.pt"))
             mlflow.log_artifacts(dp)
         mlflow.log_params(vars(artifacts["params"]))
+
+    # Save to config
+    if not test_run:
+        open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
+        utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
 
 @app.command()
