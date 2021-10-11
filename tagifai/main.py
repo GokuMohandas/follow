@@ -212,14 +212,13 @@ def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> D
         Artifacts needed for inference.
     """
     # Load artifacts
-    artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]
-    params = Namespace(**utils.load_dict(filepath=Path(artifact_uri, "params.json")))
-    label_encoder = data.MultiLabelLabelEncoder.load(
-        fp=Path(artifact_uri, "label_encoder.json")
-    )
-    tokenizer = data.Tokenizer.load(fp=Path(artifact_uri, "tokenizer.json"))
-    model_state = torch.load(Path(artifact_uri, "model.pt"), map_location=device)
-    performance = utils.load_dict(filepath=Path(artifact_uri, "performance.json"))
+    experiment_id = mlflow.get_run(run_id=run_id).info.experiment_id
+    artifacts_dir = Path(config.MODEL_REGISTRY, experiment_id, run_id, "artifacts")
+    params = Namespace(**utils.load_dict(filepath=Path(artifacts_dir, "params.json")))
+    label_encoder = data.MultiLabelLabelEncoder.load(fp=Path(artifacts_dir, "label_encoder.json"))
+    tokenizer = data.Tokenizer.load(fp=Path(artifacts_dir, "tokenizer.json"))
+    model_state = torch.load(Path(artifacts_dir, "model.pt"), map_location=device)
+    performance = utils.load_dict(filepath=Path(artifacts_dir, "performance.json"))
 
     # Initialize model
     model = models.initialize_model(
