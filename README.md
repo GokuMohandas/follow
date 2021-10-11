@@ -1,4 +1,4 @@
-> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
+> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only!
 
 ## Packaging
 ```bash
@@ -102,6 +102,12 @@ cd tests
 great_expectations checkpoint run projects
 great_expectations checkpoint run tags
 pytest -m "not training"
+```
+
+## Docker
+```
+docker build -t tagifai:latest -f Dockerfile .
+docker run -p 5000:5000 --name tagifai tagifai:latest
 ```
 
 <!-- Citation -->

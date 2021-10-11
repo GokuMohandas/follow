@@ -7,6 +7,8 @@ help:
 	@echo "venv    : creates development environment."
 	@echo "style   : runs style formatting."
 	@echo "clean   : cleans all unnecessary files."
+	@echo "test    : run data and code tests."
+	@echo "dvc     : add and push versioned data pointer files."
 
 # Environment
 .ONESHELL:
@@ -16,7 +18,8 @@ venv:
 	python -m pip install --upgrade pip setuptools wheel && \
 	python -m pip install -e ".[dev]" --no-cache-dir && \
 	pre-commit install && \
-	pre-commit autoupdate
+	pre-commit autoupdate &&
+	echo "Be sure to execute 'source venv/bin/activate' to use the virtual environment"
 
 # Styling
 .PHONY: style
