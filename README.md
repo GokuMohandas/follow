@@ -5,33 +5,23 @@
 python3 -m venv venv
 source venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 ## Organization
 ```bash
-app/
-├── api.py               - FastAPI app
-├── gunicorn.py          - WSGI script
-└── schemas.py           - API model schemas
 config/
-├── config.py            - configuration setup
-├── params.json          - training parameters
-└── test_params.py       - training test parameters
+├── config.py        - configuration setup
+├── params.json      - training parameters
+└── test_params.py   - training test parameters
 tagifai/
-├── data.py              - data processing components
-├── eval.py              - evaluation components
-├── main.py              - training/optimization pipelines
-├── models.py            - model architectures
-├── predict.py           - inference components
-├── train.py             - training components
-└── utils.py             - supplementary utilities
-tests/
-├── app/                 - API tests
-├── config/              - config tests
-├── great_expectations/  - data tests
-├── model/               - model tests
-└── tagifai/             - code tests
+├── data.py          - data processing components
+├── eval.py          - evaluation components
+├── main.py          - training/optimization pipelines
+├── models.py        - model architectures
+├── predict.py       - inference components
+├── train.py         - training components
+└── utils.py         - supplementary utilities
 ```
 
 ## Operations
@@ -40,7 +30,7 @@ from pathlib import Path
 from config import config
 from tagifai import main
 
-# Load auxiliary data
+# Load data
 main.load_data()
 
 # Compute features
@@ -71,12 +61,24 @@ main.delete_experiment(experiment_name=experiment_name)
 
 ## Documentation
 ```
-python -m mkdocs serve
+python -m mkdocs serve -a localhost:8000
+```
+
+## Styling
+```
+black .
+flask8
+isort .
+```
+
+## Makefile
+```bash
+make help
 ```
 
 ## CLI
 ```bash
-tagifai predict-tags "Transfer learning with BERT" "<RUN_ID>"
+tagifai --help
 ```
 
 ## API

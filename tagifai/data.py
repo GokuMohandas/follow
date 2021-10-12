@@ -122,7 +122,6 @@ def preprocess(
         text (str): String to preprocess.
         lower (bool, optional): Lower the text. Defaults to True.
         stem (bool, optional): Stem the text. Defaults to False.
-        filters (str, optional): Filters to apply on text.
         stopwords (List, optional): List of words to filter out. Defaults to STOPWORDS.
 
     Returns:
