@@ -30,9 +30,7 @@ app = typer.Typer()
 def load_data():
     """Load data from URLs and save to local drive."""
     # Download main data
-    projects_url = (
-        "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
-    )
+    projects_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
     projects = utils.load_json_from_url(url=projects_url)
     projects_fp = Path(config.DATA_DIR, "projects.json")
     utils.save_dict(d=projects, filepath=projects_fp)
@@ -118,9 +116,9 @@ def train_model(
 
     Args:
         params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
-        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
         experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
         run_name (str, optional): Name of the run. Defaults to `model`.
+        test_run (bool, optional): Whether to run as a test or not. If True, artifacts will not be saved. Defaults to True.
     """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
@@ -151,7 +149,9 @@ def train_model(
 
         # Log artifacts
         with tempfile.TemporaryDirectory() as dp:
-            utils.save_dict(vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder)
+            utils.save_dict(
+                vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder
+            )
             utils.save_dict(performance, Path(dp, "performance.json"))
             artifacts["label_encoder"].save(Path(dp, "label_encoder.json"))
             artifacts["tokenizer"].save(Path(dp, "tokenizer.json"))
@@ -212,7 +212,7 @@ def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> D
     """Load artifacts for current model.
 
     Args:
-        run_id (str): ID of the model run to load artifacts.
+        run_id (str): ID of the model run to load artifacts. Defaults to run ID in config.MODEL_DIR.
         device (torch.device): Device to run model on. Defaults to CPU.
 
     Returns:
