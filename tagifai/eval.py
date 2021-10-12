@@ -25,7 +25,9 @@ def short_text(x):
     return len(x.text.split()) < 7  # less than 7 words
 
 
-def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None) -> Dict:
+def get_metrics(
+    y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None
+) -> Dict:
     """Calculate metrics for fine-grained performance evaluation.
     Args:
         y_true (np.ndarray): True class labels.
@@ -98,7 +100,9 @@ def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.Da
     return metrics
 
 
-def evaluate(df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")) -> Tuple:
+def evaluate(
+    df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")
+) -> Tuple:
     """Evaluate performance on data.
     Args:
         df (pd.DataFrame): Dataframe (used for slicing).
