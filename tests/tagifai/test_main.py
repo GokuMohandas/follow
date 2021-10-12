@@ -60,7 +60,7 @@ def test_train_model():
             f"{experiment_name}",
             "--run-name",
             f"{run_name}",
-            "--test-run"
+            "--test-run",
         ],
     )
     assert result.exit_code == 0
