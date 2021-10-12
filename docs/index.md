@@ -1,4 +1,5 @@
-- [Getting started](getting_started.md): Guide for getting started with the library.
+## Documentation
+
 - [Operations](tagifai/main.md): Overview of common operational workflows.
 - [Configuration](config/config.md): Configuration parameters used for the system.
 - [TagIfAI reference](tagifai/data.md): Detailed documentation of each script and it's respective functions and classes.
