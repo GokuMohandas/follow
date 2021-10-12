@@ -15,7 +15,6 @@ test_packages = [
     "great-expectations==0.13.14",
     "pytest==6.0.2",
     "pytest-cov==2.10.1",
-    "coverage[toml]==6.0.1",
 ]
 
 dev_packages = [
@@ -28,9 +27,8 @@ dev_packages = [
 
 docs_packages = [
     "mkdocs==1.1.2",
-    "mkdocs-macros-plugin==0.5.0",
-    "mkdocs-material==6.2.4",
-    "mkdocstrings==0.14.0",
+    "mkdocs-material==7.2.3",
+    "mkdocstrings==0.15.2",
 ]
 
 setup(
