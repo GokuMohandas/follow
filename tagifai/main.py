@@ -25,7 +25,9 @@ warnings.filterwarnings("ignore")
 def load_data():
     """Load data from URLs and save to local drive."""
     # Download main data
-    projects_url = "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    projects_url = (
+        "https://raw.githubusercontent.com/GokuMohandas/MadeWithML/main/datasets/projects.json"
+    )
     projects = utils.load_json_from_url(url=projects_url)
     projects_fp = Path(config.DATA_DIR, "projects.json")
     utils.save_dict(d=projects, filepath=projects_fp)
@@ -75,12 +77,8 @@ def optimize(
 
     # Optimize
     pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=5)
-    study = optuna.create_study(
-        study_name=study_name, direction="maximize", pruner=pruner
-    )
-    mlflow_callback = MLflowCallback(
-        tracking_uri=mlflow.get_tracking_uri(), metric_name="f1"
-    )
+    study = optuna.create_study(study_name=study_name, direction="maximize", pruner=pruner)
+    mlflow_callback = MLflowCallback(tracking_uri=mlflow.get_tracking_uri(), metric_name="f1")
     study.optimize(
         lambda trial: train.objective(params, trial),
         n_trials=num_trials,
@@ -141,9 +139,7 @@ def train_model(
 
         # Log artifacts
         with tempfile.TemporaryDirectory() as dp:
-            utils.save_dict(
-                vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder
-            )
+            utils.save_dict(vars(artifacts["params"]), Path(dp, "params.json"), cls=NumpyEncoder)
             utils.save_dict(performance, Path(dp, "performance.json"))
             artifacts["label_encoder"].save(Path(dp, "label_encoder.json"))
             artifacts["tokenizer"].save(Path(dp, "tokenizer.json"))
