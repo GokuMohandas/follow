@@ -37,7 +37,7 @@ def filter_items(items: List, include: List = [], exclude: List = []) -> List:
     df.tags = df.tags.apply(
         filter_items,
         include=list(tags_dict.keys()),
-        exclude=config.EXCLDUE,
+        exclude=config.EXCLUDE,
         )
     ```
 

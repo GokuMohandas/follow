@@ -110,6 +110,11 @@ docker build -t tagifai:latest -f Dockerfile .
 docker run -p 5000:5000 --name tagifai tagifai:latest
 ```
 
+# Dashboard
+```
+streamlit run streamlit/st_app.py
+```
+
 <!-- Citation -->
 <hr>
 To cite this course, please use:

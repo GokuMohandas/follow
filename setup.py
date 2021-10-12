@@ -15,6 +15,7 @@ test_packages = [
     "great-expectations==0.13.14",
     "pytest==6.0.2",
     "pytest-cov==2.10.1",
+    "coverage[toml]==6.0.1",
 ]
 
 dev_packages = [

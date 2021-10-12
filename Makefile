@@ -16,9 +16,9 @@ venv:
 	python3 -m venv venv
 	source venv/bin/activate && \
 	python -m pip install --upgrade pip setuptools wheel && \
-	python -m pip install -e ".[dev]" --no-cache-dir && \
+	python -m pip install -e ".[dev]" && \
 	pre-commit install && \
-	pre-commit autoupdate &&
+	pre-commit autoupdate && \
 	echo "Be sure to execute 'source venv/bin/activate' to use the virtual environment"
 
 # Styling
