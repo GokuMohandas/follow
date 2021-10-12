@@ -1,19 +1,15 @@
-> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only!
+> You are on a previous snapshot of the main [MLOps repository](https://github.com/GokuMohandas/MLOps). This branch may only contain a subset of the larger project and is intended for viewing the iterative development process only.
 
 ## Packaging
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 ## Organization
 ```bash
-app/
-├── api.py           - FastAPI app
-├── gunicorn.py      - WSGI script
-└── schemas.py       - API model schemas
 config/
 ├── config.py        - configuration setup
 ├── params.json      - training parameters
@@ -34,7 +30,7 @@ from pathlib import Path
 from config import config
 from tagifai import main
 
-# Load auxiliary data
+# Load data
 main.load_data()
 
 # Compute features
@@ -65,12 +61,24 @@ main.delete_experiment(experiment_name=experiment_name)
 
 ## Documentation
 ```
-python -m mkdocs serve
+python -m mkdocs serve -a localhost:8000
+```
+
+## Styling
+```
+black .
+flask8
+isort .
+```
+
+## Makefile
+```bash
+make help
 ```
 
 ## CLI
 ```bash
-tagifai predict-tags "Transfer learning with BERT" "<RUN_ID>"
+tagifai --help
 ```
 
 ## API
@@ -97,11 +105,30 @@ curl -X 'POST' \
 ```
 
 ## Tests
-```
-cd tests
-great_expectations checkpoint run projects
-great_expectations checkpoint run tags
-pytest -m "not training"
+- Great expectation checkpoints
+    ```bash
+    cd tests
+    great_expectations checkpoint run projects
+    great_expectations checkpoint run tags
+    ```
+
+- Full coverage testing
+    ```bash
+    pytest tests --cov tagifai --cov app --cov config # report in STDOUT
+    pytest tests --cov tagifai --cov app --cov config --cov-report html  # report in htmlcov/
+    ```
+
+- Testing only the non-training components
+    ```bash
+    pytest -m "not training"
+    ```
+
+## Versioning
+```bash
+dvc add data/projects.json
+dvc add data/tags.json
+dvc add data/features.json
+dvc push
 ```
 
 ## Docker
