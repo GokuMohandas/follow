@@ -5,7 +5,7 @@
 python3 -m venv venv
 source venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 ## Organization
@@ -61,7 +61,24 @@ main.delete_experiment(experiment_name=experiment_name)
 
 ## Documentation
 ```
-python -m mkdocs serve
+python -m mkdocs serve -a localhost:8000
+```
+
+## Styling
+```
+black .
+flask8
+isort .
+```
+
+## Makefile
+```bash
+make help
+```
+
+## CLI
+```bash
+tagifai --help
 ```
 
 <!-- Citation -->
