@@ -43,7 +43,6 @@ def compute_features(
     params_fp: Path = Path(config.CONFIG_DIR, "params.json"),
 ) -> None:
     """Compute and save features for training.
-
     Args:
         params_fp (Path, optional): Location of parameters (just using num_samples,
                                     num_epochs, etc.) to use for training.
@@ -63,9 +62,7 @@ def optimize(
     num_trials: int = 100,
 ) -> None:
     """Optimize a subset of hyperparameters towards an objective.
-
     This saves the best trial's parameters into `config/params.json`.
-
     Args:
         params_fp (Path, optional): Location of parameters (just using num_samples,
                                     num_epochs, etc.) to use for training.
@@ -78,8 +75,12 @@ def optimize(
 
     # Optimize
     pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=5)
-    study = optuna.create_study(study_name=study_name, direction="maximize", pruner=pruner)
-    mlflow_callback = MLflowCallback(tracking_uri=mlflow.get_tracking_uri(), metric_name="f1")
+    study = optuna.create_study(
+        study_name=study_name, direction="maximize", pruner=pruner
+    )
+    mlflow_callback = MLflowCallback(
+        tracking_uri=mlflow.get_tracking_uri(), metric_name="f1"
+    )
     study.optimize(
         lambda trial: train.objective(params, trial),
         n_trials=num_trials,
@@ -105,12 +106,11 @@ def train_model(
     test_run: Optional[bool] = False,
 ) -> None:
     """Train a model using the specified parameters.
-
     Args:
         params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
-        model_dir (Path): location of model artifacts. Defaults to config.MODEL_DIR.
         experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
         run_name (str, optional): Name of the run. Defaults to `model`.
+        test_run (boo, optional): Whether to run as a test or not. If True, artifacts will not be saved. Defaults to True.
     """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
@@ -159,17 +159,13 @@ def train_model(
 
 def predict_tags(text: str, run_id: str) -> Dict:
     """Predict tags for a give input text using a trained model.
-
     Warning:
         Make sure that you have a trained model first!
-
     Args:
         text (str): Input text to predict tags for.
         run_id (str): ID of the model run to load artifacts.
-
     Raises:
         ValueError: Run id doesn't exist in experiment.
-
     Returns:
         Predicted tags for input text.
     """
@@ -199,11 +195,9 @@ def performance(run_id: str) -> Dict:
 
 def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> Dict:
     """Load artifacts for current model.
-
     Args:
         run_id (str): ID of the model run to load artifacts. Defaults to run ID in config.MODEL_DIR.
         device (torch.device): Device to run model on. Defaults to CPU.
-
     Returns:
         Artifacts needed for inference.
     """
@@ -233,7 +227,6 @@ def load_artifacts(run_id: str, device: torch.device = torch.device("cpu")) -> D
 
 def delete_experiment(experiment_name: str):
     """Delete an experiment with name `experiment_name`.
-
     Args:
         experiment_name (str): Name of the experiment.
     """
