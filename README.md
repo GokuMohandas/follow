@@ -61,7 +61,19 @@ main.delete_experiment(experiment_name=experiment_name)
 
 ## Documentation
 ```
-python -m mkdocs serve
+python -m mkdocs serve -a localhost:8000
+```
+
+## Styling
+```
+black .
+flask8
+isort .
+```
+
+## Makefile
+```bash
+make help
 ```
 
 <!-- Citation -->
