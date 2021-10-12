@@ -2,7 +2,7 @@
 # Evaluation components.
 
 import itertools
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -25,7 +25,7 @@ def short_text(x):
     return len(x.text.split()) < 7  # less than 7 words
 
 
-def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None):
+def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None) -> Dict:
     """Calculate metrics for fine-grained performance evaluation.
 
     Args:
@@ -100,7 +100,7 @@ def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.Da
     return metrics
 
 
-def evaluate(df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")):
+def evaluate(df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")) -> Tuple:
     """Evaluate performance on data.
 
     Args:
