@@ -114,7 +114,7 @@ def train_model(
         params_fp (Path, optional): Parameters to use for training. Defaults to `config/params.json`.
         experiment_name (str, optional): Name of the experiment to save the run to. Defaults to `best`.
         run_name (str, optional): Name of the run. Defaults to `model`.
-        test_run (boo, optional): Whether to run as a test or not. If True, artifacts will not be saved. Defaults to True.
+        test_run (bool, optional): Whether to run as a test or not. If True, artifacts will not be saved. Defaults to True.
     """
     # Parameters
     params = Namespace(**utils.load_dict(filepath=params_fp))
