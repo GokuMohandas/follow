@@ -36,15 +36,21 @@ def load_data():
 
 
 @st.cache
-def get_artifacts(run_id: int):
-    artifacts = main.load_artifacts(run_id=run_id)
-    return artifacts
+def get_params(allow_output_mutation=True):
+    params = utils.load_dict(filepath=Path(config.CONFIG_DIR, "params.json"))
+    return params
 
 
 @st.cache(allow_output_mutation=True)
 def get_performance():
     performance = utils.load_dict(filepath=Path(config.CONFIG_DIR, "performance.json"))
     return performance
+
+
+@st.cache
+def get_artifacts(run_id: int):
+    artifacts = main.load_artifacts(run_id=run_id)
+    return artifacts
 
 
 def get_dict_diffs(d_a: Dict, d_b: Dict, d_a_name="a", d_b_name="b", tolerance=0) -> Dict:
@@ -218,34 +224,53 @@ if selected_page == "Data":
 
 elif selected_page == "Performance":
     st.header("Performance")
+    params_prod = get_params()
+    params_local = copy.deepcopy(params_prod)
     performance_prod = get_performance()
     performance_local = copy.deepcopy(performance_prod)
 
     # Inject changes
+    params_local["num_filters"] = 300
+    params_local["hidden_dim"] = 256
     performance_local["overall"]["precision"] = performance_local["overall"]["precision"] + 0.03
     performance_local["overall"]["recall"] = performance_local["overall"]["recall"] - 0.03
     performance_local["slices"]["overall"]["f1"] = (
         performance_local["slices"]["overall"]["f1"] + 0.05
     )
 
-    # Diffs
-    st.write("Differences")
-    diffs = get_dict_diffs(
+    # Performance
+    performance_diffs = get_dict_diffs(
         d_a=performance_prod, d_b=performance_local, d_a_name="prod", d_b_name="local"
     )
     cols = st.columns(3)
     for i, col in enumerate(cols):
-        metric = list(diffs.keys())[i]
-        col.metric(metric, f'{diffs[metric]["local"]:.2f}', f'{diffs[metric]["diff"]:.2f}')
+        metric = list(performance_diffs.keys())[i]
+        col.metric(metric, f'{performance_diffs[metric]["local"]:.2f}', f'{performance_diffs[metric]["diff"]:.2f}')
+    with st.expander("Performance"):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("Production")
+            st.json(performance_prod)
+        with col2:
+            st.write("Local")
+            st.json(performance_local)
+        st.write("Differences")
+        st.json(performance_diffs)
 
-    # Full
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write("Production")
-        st.json(performance_prod)
-    with col2:
-        st.write("Local")
-        st.json(performance_local)
+    # Params
+    with st.expander("Parameters"):
+        param_diffs = get_dict_diffs(
+            d_a=params_prod, d_b=params_local, d_a_name="prod", d_b_name="local"
+        )
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("Production")
+            st.json(params_prod)
+        with col2:
+            st.write("Local")
+            st.json(params_local)
+        st.write("Differences")
+        st.json(param_diffs)
 
     st.warning(
         "We're simulating previous performance but we could easily pull \
@@ -324,15 +349,6 @@ elif selected_page == "Inspection":
     st.warning(
         "Be careful not to make decisions based on predicted probabilities before [calibrating](https://arxiv.org/abs/1706.04599) them to reliably use as measures of confidence."
     )
-    """
-    ### Extensions
-
-    - Use false positives to identify potentially mislabeled data.
-    - Connect inspection pipelines with annotation systems so that changes to the data can be reviewed and incorporated.
-    - Inspect FP / FN samples by [estimating training data influences (TracIn)](https://arxiv.org/abs/2002.08484) on their predictions.
-    - Inspect the trained model's behavior under various conditions using the [WhatIf](https://pair-code.github.io/what-if-tool/) tool.
-    """
-
 
 else:
     st.text("Please select a valid page option from above...")
