@@ -2,7 +2,7 @@
 # Evaluation components.
 
 import itertools
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -25,15 +25,15 @@ def short_text(x):
     return len(x.text.split()) < 7  # less than 7 words
 
 
-def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None):
+def get_metrics(
+    y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None
+) -> Dict:
     """Calculate metrics for fine-grained performance evaluation.
-
     Args:
         y_true (np.ndarray): True class labels.
         y_pred (np.ndarray): Predicted class labels.
         classes (List): List of all unique classes.
         df (pd.DataFrame, optional): dataframe used for slicing.
-
     Returns:
         Dictionary of fine-grained performance metrics.
     """
@@ -100,14 +100,14 @@ def get_metrics(y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.Da
     return metrics
 
 
-def evaluate(df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")):
+def evaluate(
+    df: pd.DataFrame, artifacts: Dict, device: torch.device = torch.device("cpu")
+) -> Tuple:
     """Evaluate performance on data.
-
     Args:
         df (pd.DataFrame): Dataframe (used for slicing).
         artifacts (Dict): Artifacts needed for inference.
         device (torch.device): Device to run model on. Defaults to CPU.
-
     Returns:
         Ground truth and predicted labels, performance.
     """

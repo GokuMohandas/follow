@@ -37,7 +37,7 @@ def filter_items(items: List, include: List = [], exclude: List = []) -> List:
     df.tags = df.tags.apply(
         filter_items,
         include=list(tags_dict.keys()),
-        exclude=config.EXCLDUE,
+        exclude=config.EXCLUDE,
         )
     ```
 
@@ -122,7 +122,6 @@ def preprocess(
         text (str): String to preprocess.
         lower (bool, optional): Lower the text. Defaults to True.
         stem (bool, optional): Stem the text. Defaults to False.
-        filters (str, optional): Filters to apply on text.
         stopwords (List, optional): List of words to filter out. Defaults to STOPWORDS.
 
     Returns:

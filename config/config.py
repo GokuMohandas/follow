@@ -88,6 +88,7 @@ EXCLUDED_TAGS = [
     "python",
     "r",
     "visualization",
+    "wandb",
 ]
 
 # Stopwords for preprocessing
