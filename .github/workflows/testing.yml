@@ -2,9 +2,11 @@ name: testing
 on:
   push:
     branches:
+    - master
     - main
   pull_request:
     branches:
+    - master
     - main
 jobs:
   test-code:
@@ -25,4 +27,4 @@ jobs:
         run: |
           python -m pip install -e ".[test]" --no-cache-dir
       - name: Execute tests
-        run: pytest tests/tagifai --ignore tests/tagifai/test_main.py
+        run: pytest tests/tagifai --ignore tests/tagifai/test_main.py --ignore tests/tagifai/test_data.py
