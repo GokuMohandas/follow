@@ -50,4 +50,5 @@ dvc:
 	dvc add data/projects.json
 	dvc add data/tags.json
 	dvc add data/features.json
+	dvc add data/features.parquet
 	dvc push
