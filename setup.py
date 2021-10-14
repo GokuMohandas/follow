@@ -12,6 +12,7 @@ with open(Path(BASE_DIR, "requirements.txt")) as file:
     required_packages = [ln.strip() for ln in file.readlines()]
 
 test_packages = [
+    "coverage[toml]==6.0.2",
     "great-expectations==0.13.14",
     "pytest==6.0.2",
     "pytest-cov==2.10.1",
@@ -53,7 +54,10 @@ setup(
     ],
     python_requires=">=3.7",
     packages=find_namespace_packages(),
-    install_requires=[required_packages],
+    install_requires=[
+        required_packages,
+        "snorkel@git+git://github.com/snorkel-team/snorkel.git@4d1555654496f0d9e089edc26a8aa102cdfbb5da",
+    ],
     extras_require={
         "test": test_packages,
         "dev": test_packages + dev_packages + docs_packages,
