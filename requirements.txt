@@ -1,5 +1,6 @@
-apache-airflow==2.1.0
+alibi-detect==0.7.2
 airflow-provider-great-expectations==0.0.6
+apache-airflow==2.1.0
 dvc==2.1.0
 fastapi==0.63.0
 feast==0.10.5
@@ -15,8 +16,8 @@ rich==10.0.0
 scikit-multilearn==0.2.0
 seaborn==0.11.1
 sklearn==0.0
-snorkel==0.9.6
-streamlit==0.78.0
+snorkel @ git+git://github.com/snorkel-team/snorkel.git@4d1555654496f0d9e089edc26a8aa102cdfbb5da  # replace with snorkel==0.9.8 when it's ready
+streamlit==1.0.0
 torch==1.9.0
 typer==0.3.2
 uvicorn[standard]==0.13.3
