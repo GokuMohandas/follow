@@ -160,7 +160,7 @@ def train_model(
         mlflow.log_params(vars(artifacts["params"]))
 
     # Save to config
-    if not test_run:
+    if not test_run:  # pragma: no cover, testing shouldn't save files
         open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
         utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
