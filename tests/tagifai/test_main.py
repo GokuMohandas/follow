@@ -90,10 +90,5 @@ def test_performance():
 
 @pytest.mark.training
 def test_get_historical_features():
-    result = runner.invoke(
-        app,
-        [
-            "get-historical-features",
-        ],
-    )
+    result = runner.invoke(app, ["get-historical-features"])
     assert result.exit_code == 0
