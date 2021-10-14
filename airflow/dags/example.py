@@ -2,7 +2,6 @@
 from airflow.decorators import dag
 from airflow.operators.bash_operator import BashOperator
 
-
 # Default DAG args
 default_args = {
     "owner": "airflow",

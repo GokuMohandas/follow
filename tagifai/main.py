@@ -5,13 +5,16 @@ import json
 import tempfile
 import warnings
 from argparse import Namespace
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
 
 import mlflow
 import optuna
+import pandas as pd
 import torch
 import typer
+from feast import FeatureStore
 from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
 
@@ -160,7 +163,7 @@ def train_model(
         mlflow.log_params(vars(artifacts["params"]))
 
     # Save to config
-    if not test_run:
+    if not test_run:  # pragma: no cover, testing shouldn't save files
         open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
         utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
@@ -252,3 +255,22 @@ def delete_experiment(experiment_name: str):
     experiment_id = client.get_experiment_by_name(experiment_name).experiment_id
     client.delete_experiment(experiment_id=experiment_id)
     logger.info(f"✅ Deleted experiment {experiment_name}!")
+
+
+@app.command()
+def get_historical_features():
+    """Retrieve historical features for training."""
+    # Entities to pull data for (should dynamically read this from somewhere)
+    project_ids = [1, 2, 3]
+    now = datetime.now()
+    timestamps = [datetime(now.year, now.month, now.day)] * len(project_ids)
+    entity_df = pd.DataFrame.from_dict({"id": project_ids, "event_timestamp": timestamps})
+
+    # Get historical features
+    store = FeatureStore(repo_path=Path(config.BASE_DIR, "features"))
+    training_df = store.get_historical_features(
+        entity_df=entity_df,
+        feature_refs=["project_details:text", "project_details:tags"],
+    ).to_df()
+    logger.info(training_df.head())
+    return training_df
