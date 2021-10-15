@@ -1,0 +1,1480 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tag suggestions for projects on Made With ML.">
+      
+      
+      
+        <meta name="author" content="Goku Mohandas">
+      
+      
+        <link rel="canonical" href="https://madewithml.com/tagifai/train/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.2.3">
+    
+    
+      
+        <title>Training - TagIfAI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tagifai.train" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TagIfAI" class="md-header__button md-logo" aria-label="TagIfAI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TagIfAI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Training
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/GokuMohandas/MLOps" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GokuMohandas/MLOps
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TagIfAI" class="md-nav__button md-logo" aria-label="TagIfAI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    TagIfAI
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/GokuMohandas/MLOps" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GokuMohandas/MLOps
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        TagIfAI
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started.md" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/" class="md-nav__link">
+        Operations
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/config/" class="md-nav__link">
+        Configurations
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        Data
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eval/" class="md-nav__link">
+        Eval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        Models
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Training
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Training
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train" class="md-nav__link">
+    tagifai.train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer" class="md-nav__link">
+    Trainer
+  </a>
+  
+    <nav class="md-nav" aria-label="Trainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.eval_step" class="md-nav__link">
+    eval_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.predict_step" class="md-nav__link">
+    predict_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.train" class="md-nav__link">
+    train()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.train_step" class="md-nav__link">
+    train_step()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.find_best_threshold" class="md-nav__link">
+    find_best_threshold()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.objective" class="md-nav__link">
+    objective()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.train" class="md-nav__link">
+    train()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../predict/" class="md-nav__link">
+        Inference
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        Utilities
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train" class="md-nav__link">
+    tagifai.train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer" class="md-nav__link">
+    Trainer
+  </a>
+  
+    <nav class="md-nav" aria-label="Trainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.eval_step" class="md-nav__link">
+    eval_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.predict_step" class="md-nav__link">
+    predict_step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.train" class="md-nav__link">
+    train()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tagifai.train.Trainer.train_step" class="md-nav__link">
+    train_step()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.find_best_threshold" class="md-nav__link">
+    find_best_threshold()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.objective" class="md-nav__link">
+    objective()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tagifai.train.train" class="md-nav__link">
+    train()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Training</h1>
+                
+                <div class="doc doc-object doc-module">
+
+<a id="tagifai.train"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="tagifai.train.Trainer">
+        <code>Trainer</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Object used to facilitate training.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tagifai.train.Trainer.eval_step">
+<code class="highlight language-python"><span class="n">eval_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Evaluation (val / test) step.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>dataloader</code></td>
+        <td><code>DataLoader</code></td>
+        <td><p>Torch dataloader to load batches from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">eval_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Evaluation (val / test) step.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set model to eval mode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">y_trues</span><span class="p">,</span> <span class="n">y_probs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="c1"># Iterate over val batches</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+
+            <span class="c1"># Step</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>  <span class="c1"># Set device</span>
+            <span class="n">inputs</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># Forward pass</span>
+            <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+            <span class="c1"># Cumulative Metrics</span>
+            <span class="n">loss</span> <span class="o">+=</span> <span class="p">(</span><span class="n">J</span> <span class="o">-</span> <span class="n">loss</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># Store outputs</span>
+            <span class="n">y_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">y_probs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_prob</span><span class="p">)</span>
+            <span class="n">y_trues</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_true</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">y_trues</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">y_probs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tagifai.train.Trainer.predict_step">
+<code class="highlight language-python"><span class="n">predict_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Prediction (inference) step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Loss is not calculated for this loop.</p>
+</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>dataloader</code></td>
+        <td><code>DataLoader</code></td>
+        <td><p>Torch dataloader to load batches from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">predict_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prediction (inference) step.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Loss is not calculated for this loop.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set model to eval mode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">y_trues</span><span class="p">,</span> <span class="n">y_probs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="c1"># Iterate over batches</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+
+            <span class="c1"># Forward pass w/ inputs</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>  <span class="c1"># Set device</span>
+            <span class="n">inputs</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+            <span class="c1"># Store outputs</span>
+            <span class="n">y_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">y_probs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_prob</span><span class="p">)</span>
+            <span class="n">y_trues</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_true</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">y_trues</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">y_probs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tagifai.train.Trainer.train">
+<code class="highlight language-python"><span class="n">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">patience</span><span class="p">,</span> <span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val_dataloader</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Training loop.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>num_epochs</code></td>
+        <td><code>int</code></td>
+        <td><p>Maximum number of epochs to train for (can stop earlier based on performance).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>patience</code></td>
+        <td><code>int</code></td>
+        <td><p>Number of acceptable epochs for continuous degrading performance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>train_dataloader</code></td>
+        <td><code>DataLoader</code></td>
+        <td><p>Dataloader object with training data split.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>val_dataloader</code></td>
+        <td><code>DataLoader</code></td>
+        <td><p>Dataloader object with validation data split.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>optuna.TrialPruned</code></td>
+        <td><p>Early stopping of the optimization trial if poor performance.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple</code></td>
+      <td><p>The best validation loss and the trained model from that point.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">num_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">train_dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">,</span>
+    <span class="n">val_dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Training loop.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_epochs (int): Maximum number of epochs to train for (can stop earlier based on performance).</span>
+<span class="sd">        patience (int): Number of acceptable epochs for continuous degrading performance.</span>
+<span class="sd">        train_dataloader (torch.utils.data.DataLoader): Dataloader object with training data split.</span>
+<span class="sd">        val_dataloader (torch.utils.data.DataLoader): Dataloader object with validation data split.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        optuna.TrialPruned: Early stopping of the optimization trial if poor performance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The best validation loss and the trained model from that point.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">best_val_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_patience</span> <span class="o">=</span> <span class="n">patience</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+        <span class="c1"># Steps</span>
+        <span class="n">train_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">(</span><span class="n">dataloader</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">)</span>
+        <span class="n">val_loss</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_step</span><span class="p">(</span><span class="n">dataloader</span><span class="o">=</span><span class="n">val_dataloader</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+
+        <span class="c1"># Pruning based on the intermediate value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">val_loss</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">should_prune</span><span class="p">():</span>  <span class="c1"># pragma: no cover, optuna pruning</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Unpromising trial pruned!&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">optuna</span><span class="o">.</span><span class="n">TrialPruned</span><span class="p">()</span>
+
+        <span class="c1"># Early stopping</span>
+        <span class="k">if</span> <span class="n">val_loss</span> <span class="o">&lt;</span> <span class="n">best_val_loss</span><span class="p">:</span>
+            <span class="n">best_val_loss</span> <span class="o">=</span> <span class="n">val_loss</span>
+            <span class="n">best_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+            <span class="n">_patience</span> <span class="o">=</span> <span class="n">patience</span>  <span class="c1"># reset _patience</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover, simple subtraction</span>
+            <span class="n">_patience</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_patience</span><span class="p">:</span>  <span class="c1"># pragma: no cover, simple break</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping early!&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Logging</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> | &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;train_loss: </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;val_loss: </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;lr: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2E</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;_patience: </span><span class="si">{</span><span class="n">_patience</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">best_val_loss</span><span class="p">,</span> <span class="n">best_model</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tagifai.train.Trainer.train_step">
+<code class="highlight language-python"><span class="n">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Train step.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>dataloader</code></td>
+        <td><code>DataLoader</code></td>
+        <td><p>Torch dataloader to load batches from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Train step.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataloader (torch.utils.data.DataLoader): Torch dataloader to load batches from.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set model to train mode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Iterate over train batches</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+
+        <span class="c1"># Step</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>  <span class="c1"># Set device</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>  <span class="c1"># Reset gradients</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># Forward pass</span>
+        <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>  <span class="c1"># Define loss</span>
+        <span class="n">J</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>  <span class="c1"># Backward pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>  <span class="c1"># Update weights</span>
+
+        <span class="c1"># Cumulative Metrics</span>
+        <span class="n">loss</span> <span class="o">+=</span> <span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">-</span> <span class="n">loss</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="tagifai.train.find_best_threshold">
+<code class="highlight language-python"><span class="n">find_best_threshold</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Determine the best threshold for maximum f1 score.</p>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find best threshold</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">eval_step</span><span class="p">(</span><span class="n">dataloader</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">)</span>
+<span class="n">params</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">find_best_threshold</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="o">=</span><span class="n">y_prob</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>y_true</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>True labels.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>y_prob</code></td>
+        <td><code>ndarray</code></td>
+        <td><p>Probability distribution for predicted labels.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p>Best threshold for maximum f1 score.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">find_best_threshold</span><span class="p">(</span><span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Determine the best threshold for maximum f1 score.</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    # Find best threshold</span>
+<span class="sd">    _, y_true, y_prob = trainer.eval_step(dataloader=train_dataloader)</span>
+<span class="sd">    params.threshold = find_best_threshold(y_true=y_true, y_prob=y_prob)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (np.ndarray): True labels.</span>
+<span class="sd">        y_prob (np.ndarray): Probability distribution for predicted labels.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Best threshold for maximum f1 score.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">precisions</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_true</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_prob</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="n">f1s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">precisions</span> <span class="o">*</span> <span class="n">recalls</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precisions</span> <span class="o">+</span> <span class="n">recalls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">thresholds</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f1s</span><span class="p">)]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="tagifai.train.objective">
+<code class="highlight language-python"><span class="n">objective</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">trial</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Objective function for optimization trials.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>params</code></td>
+        <td><code>Namespace</code></td>
+        <td><p>Input parameters for each trial (see <code>config/params.json</code>).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>trial</code></td>
+        <td><code>Trial</code></td>
+        <td><p>Optuna optimization trial.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p>F1 score from evaluating the trained model on the test data split.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">,</span> <span class="n">trial</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">_trial</span><span class="o">.</span><span class="n">Trial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Objective function for optimization trials.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (Namespace): Input parameters for each trial (see `config/params.json`).</span>
+<span class="sd">        trial (optuna.trial._trial.Trial): Optuna optimization trial.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        F1 score from evaluating the trained model on the test data split.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Paramters (to tune)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;embedding_dim&quot;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">num_filters</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;num_filters&quot;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;hidden_dim&quot;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">dropout_p</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_uniform</span><span class="p">(</span><span class="s2">&quot;dropout_p&quot;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s2">&quot;lr&quot;</span><span class="p">,</span> <span class="mf">5e-5</span><span class="p">,</span> <span class="mf">5e-4</span><span class="p">)</span>
+
+    <span class="c1"># Train (can move some of these outside for efficiency)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trial </span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">trial</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">artifacts</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">trial</span><span class="o">=</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="c1"># Set additional attributes</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;performance&quot;</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">trial</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span>
+    <span class="n">trial</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;precision&quot;</span><span class="p">])</span>
+    <span class="n">trial</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;recall&quot;</span><span class="p">])</span>
+    <span class="n">trial</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;f1&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;f1&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="tagifai.train.train">
+<code class="highlight language-python"><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">trial</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Operations for training.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>params</code></td>
+        <td><code>Namespace</code></td>
+        <td><p>Input parameters for operations.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>trial</code></td>
+        <td><code>Trial</code></td>
+        <td><p>Optuna optimization trial. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Dict</code></td>
+      <td><p>Artifacts to save and load for later.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/train.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">,</span> <span class="n">trial</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">_trial</span><span class="o">.</span><span class="n">Trial</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Operations for training.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (Namespace): Input parameters for operations.</span>
+<span class="sd">        trial (optuna.trial._trial.Trail, optional): Optuna optimization trial. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Artifacts to save and load for later.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set up</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">cuda</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">cuda</span><span class="p">)</span>
+
+    <span class="c1"># Load features</span>
+    <span class="n">features_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;features.json&quot;</span><span class="p">)</span>
+    <span class="n">tags_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;tags.json&quot;</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">features_fp</span><span class="p">)</span>
+    <span class="n">tags_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">list_to_dict</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">tags_fp</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">shuffle</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span> <span class="n">params</span><span class="o">.</span><span class="n">subset</span><span class="p">]</span>  <span class="c1"># None = all samples</span>
+
+    <span class="c1"># Prepare data (filter, clean, etc.)</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">tags_above_freq</span><span class="p">,</span> <span class="n">tags_below_freq</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+        <span class="n">include</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">tags_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+        <span class="n">exclude</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">EXCLUDED_TAGS</span><span class="p">,</span>
+        <span class="n">min_tag_freq</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">min_tag_freq</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Preprocess data</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">stem</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">stem</span><span class="p">)</span>
+
+    <span class="c1"># Encode labels</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tags</span>
+    <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">MultiLabelLabelEncoder</span><span class="p">()</span>
+    <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="c1"># Class weights</span>
+    <span class="n">all_tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">([</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">class_to_index</span><span class="p">[</span><span class="n">class_</span><span class="p">]</span> <span class="k">for</span> <span class="n">class_</span> <span class="ow">in</span> <span class="n">all_tags</span><span class="p">])</span>
+    <span class="n">class_weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">count</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">counts</span><span class="p">)}</span>
+
+    <span class="c1"># Split data</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>  <span class="c1"># needed for skmultilearn</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iterative_train_test_split</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">train_size</span>
+    <span class="p">)</span>
+    <span class="n">X_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iterative_train_test_split</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">X_test</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">y_test</span><span class="p">)})</span>
+
+    <span class="c1"># Tokenize inputs</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">char_level</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">char_level</span><span class="p">)</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">fit_on_texts</span><span class="p">(</span><span class="n">texts</span><span class="o">=</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">X_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">X_val</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="c1"># Create dataloaders</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">CNNTextDataset</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">max_filter_size</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">max_filter_size</span>
+    <span class="p">)</span>
+    <span class="n">val_dataset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">CNNTextDataset</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_val</span><span class="p">,</span> <span class="n">max_filter_size</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">max_filter_size</span><span class="p">)</span>
+    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">create_dataloader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">val_dataloader</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="o">.</span><span class="n">create_dataloader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+
+    <span class="c1"># Initialize model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">initialize_model</span><span class="p">(</span>
+        <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">vocab_size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">),</span>
+        <span class="n">num_classes</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_encoder</span><span class="p">),</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Train model</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameters: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">NumpyEncoder</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">class_weights_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">class_weights</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">class_weights_tensor</span><span class="p">)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ReduceLROnPlateau</span><span class="p">(</span>
+        <span class="n">optimizer</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Trainer module</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+        <span class="n">scheduler</span><span class="o">=</span><span class="n">scheduler</span><span class="p">,</span>
+        <span class="n">trial</span><span class="o">=</span><span class="n">trial</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Train</span>
+    <span class="n">best_val_loss</span><span class="p">,</span> <span class="n">best_model</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">patience</span><span class="p">,</span> <span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val_dataloader</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Find best threshold</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">eval_step</span><span class="p">(</span><span class="n">dataloader</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">find_best_threshold</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="o">=</span><span class="n">y_prob</span><span class="p">)</span>
+
+    <span class="c1"># Evaluate model</span>
+    <span class="n">artifacts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span>
+        <span class="s2">&quot;label_encoder&quot;</span><span class="p">:</span> <span class="n">label_encoder</span><span class="p">,</span>
+        <span class="s2">&quot;tokenizer&quot;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="p">,</span>
+        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">best_model</span><span class="p">,</span>
+        <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">best_val_loss</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">performance</span> <span class="o">=</span> <span class="nb">eval</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">test_df</span><span class="p">,</span> <span class="n">artifacts</span><span class="o">=</span><span class="n">artifacts</span><span class="p">)</span>
+    <span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;performance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">performance</span>
+
+    <span class="k">return</span> <span class="n">artifacts</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../models/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Models" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Models
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../predict/" class="md-footer__link md-footer__link--next" aria-label="Next: Inference" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Inference
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
+      
+    
+  </body>
+</html>
