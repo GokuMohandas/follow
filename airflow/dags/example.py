@@ -1,6 +1,7 @@
 # airflow/dags/example.py
 from airflow.decorators import dag
 from airflow.operators.bash_operator import BashOperator
+from airflow.utils.dates import days_ago
 
 # Default DAG args
 default_args = {
@@ -12,6 +13,8 @@ default_args = {
     dag_id="example",
     description="Example DAG",
     default_args=default_args,
+    schedule_interval=None,
+    start_date=days_ago(2),
     tags=["example"],
 )
 def example():

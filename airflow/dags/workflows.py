@@ -1,4 +1,5 @@
 # airflow/dags/wokrflows.py
+from datetime import datetime
 from pathlib import Path
 
 from great_expectations_provider.operators.great_expectations import (
@@ -21,7 +22,7 @@ default_args = {
 
 @dag(
     dag_id="data",
-    description="Feature creating operations.",
+    description="Featurization operations.",
     default_args=default_args,
     schedule_interval=None,
     start_date=days_ago(2),
@@ -60,7 +61,7 @@ def data():
     )
 
     # Cache (feature store, database, warehouse, etc.)
-    END_TS = ""
+    END_TS = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     cache = BashOperator(
         task_id="cache_to_feature_store",
         bash_command=f"cd {config.BASE_DIR}/features && feast materialize-incremental {END_TS}",
@@ -76,7 +77,7 @@ def _evaluate_model():
 
 @dag(
     dag_id="model",
-    description="Model creating operations.",
+    description="Model training operations.",
     default_args=default_args,
     schedule_interval=None,
     start_date=days_ago(2),
@@ -96,13 +97,13 @@ def model():
     # Optimization
     optimization = BashOperator(
         task_id="optimization",
-        bash_command="echo `tagifai optimize`",
+        bash_command="echo OPTIMIZE",  # tagifai optimize
     )
 
     # Train model
     train = BashOperator(
         task_id="train",
-        bash_command="echo `tagifai train-model`",
+        bash_command="echo TRAIN-MODEL",  # tagifai train-model
     )
 
     # Evaluate model
@@ -121,10 +122,10 @@ def model():
         bash_command="echo REGRESSED",
     )
 
-    # Serve model
+    # Serve model(s)
     serve = BashOperator(
-        task_id="serve",  # push to GitHub to kick off serving workflows
-        bash_command="echo served model",  # or to a purpose-built model server, etc.
+        task_id="serve_model",
+        bash_command="echo SERVE-MODEL",
     )
 
     # Notifications (use appropriate operators, ex. EmailOperator)
@@ -156,7 +157,7 @@ def update():
     # Considers thresholds, windows, frequency, etc.
     monitoring = BashOperator(
         task_id="monitoring",
-        bash_command="echo monitoring",
+        bash_command="echo MONITORING",
     )
 
     # Update policy engine (continue, improve, rollback, etc.)
@@ -168,32 +169,32 @@ def update():
     # Policies
     _continue = BashOperator(
         task_id="continue",
-        bash_command="echo continue",
+        bash_command="echo CONTINUE",
     )
     inspect = BashOperator(
         task_id="inspect",
-        bash_command="echo inspect",
+        bash_command="echo INSPECT",
     )
     improve = BashOperator(
         task_id="improve",
-        bash_command="echo improve",
+        bash_command="echo IMPROVE",
     )
     rollback = BashOperator(
         task_id="rollback",
-        bash_command="echo rollback",
+        bash_command="echo ROLLBACK",
     )
 
     # Compose retraining dataset
     # Labeling, QA, augmentation, upsample poor slices, weight samples, etc.
     compose_retraining_dataset = BashOperator(
         task_id="compose_retraining_dataset",
-        bash_command="echo compose retraining dataset",
+        bash_command="echo COMPOSE-TRAINING-DATASET",
     )
 
     # Retrain (initiates model creation workflow)
     retrain = BashOperator(
         task_id="retrain",
-        bash_command="echo retrain",
+        bash_command="echo RETRAIN",
     )
 
     # Task relationships
