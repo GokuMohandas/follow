@@ -86,3 +86,9 @@ def test_performance():
     run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
     result = runner.invoke(app, ["performance", f"{run_id}"])
     assert result.exit_code == 0
+
+
+@pytest.mark.training
+def test_get_historical_features():
+    result = runner.invoke(app, ["get-historical-features"])
+    assert result.exit_code == 0

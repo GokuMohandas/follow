@@ -1,0 +1,6 @@
+# features/feature_store.yaml
+project: features
+registry: ../stores/feature/registry.db
+provider: local
+online_store:
+    path: ../stores/feature/online_store.db
